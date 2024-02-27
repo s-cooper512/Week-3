@@ -55,7 +55,7 @@ function calcResult () { //what it says on the tin: calculates the result of the
     inputVal2[0] = parseFloat(inputVal2[0]); //floats picked for division purposes
 
     if (operator === "+") { //addition
-        inputVal1[0] += inputVal2[0]; //all answers are assigned to inputVal1[0] for display
+        inputVal1[0] += inputVal2[0]; //all answers are assigned to inputVal1[0] for display. This also allows further operations to be done on the answer, rather than requiring a clean slate each time
     } else if (operator === "-") { //subtraction
         inputVal1[0] -= inputVal2[0];
     } else if (operator === "*") { //multiplication
