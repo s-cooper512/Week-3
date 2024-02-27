@@ -50,7 +50,12 @@ function checkOperator (value) { //if the clicked button was not a number, we en
     }
 }
 
+function recordHistory (historyStr) {
+    
+}
+
 function calcResult () { //what it says on the tin: calculates the result of the requested operation
+    let storedVal1 = inputVal1[0]; //stores the string value of inputVal1[0] in order to record it in history
     inputVal1[0] = parseFloat(inputVal1[0]); //convert values to floats in order to ensure that we're doing math on numbers and not strings
     inputVal2[0] = parseFloat(inputVal2[0]); //floats picked for division purposes
 
@@ -67,6 +72,7 @@ function calcResult () { //what it says on the tin: calculates the result of the
     }
 
     displayBar.innerHTML = inputVal1[0]; //update HTML output
+    recordHistory(storedVal1 + " " + operator + " " + inputVal2[0] + " + " + inputVal1[0]);
     operator = ""; //clear operator
     inputVal2.pop(); //delete second value
 }
@@ -83,7 +89,7 @@ function buttonClick (clicked) { //initial check after clicking a button
 
 //Create Addition Button
 document.getElementsByClassName("row")[4].insertAdjacentHTML('beforeend', `<div class="button">+</div>`);
-document.styleSheets[0].deleteRule(5);
+//document.styleSheets[0].deleteRule(5);
 
 for (let i = 0; buttons.length > i; i++) { //assigns click listeners to all buttons and has them report their contents to begin operation
     buttons[i].addEventListener("click", function() {
