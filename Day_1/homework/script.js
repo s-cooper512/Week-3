@@ -1,5 +1,8 @@
 let buttons = document.getElementsByClassName("button");
-const displayBar = document.getElementsByClassName("display")[0];
+let displayBar = document.getElementsByClassName("display")[0];
+let historyList = document.getElementsByClassName("history-list");
+let clearAllHistory = document.querySelector(".clear-history");
+let darkModeSwitch = document.querySelector(".switch");
 
 let inputVal1 = [];
 let inputVal2 = [];
@@ -51,7 +54,14 @@ function checkOperator (value) { //if the clicked button was not a number, we en
 }
 
 function recordHistory (historyStr) {
-    
+    historyList[0].insertAdjacentHTML(`afterbegin`, `<div class="historyItem">` + historyStr + '<br><br><button class="clearSingle">Delete</button><hr></div>'); //displays historyStr in the history field of the calculator whenever called
+
+    historyList[0].querySelectorAll(".historyItem").forEach(historyItem => { //for each item inside of the history list that is tagged as a history item
+        let delButton = historyItem.querySelector(".clearSingle"); //assign the child delete button to delButton
+        delButton.addEventListener("click", function () { //when delButton is clicked, replace that history item's HTML with a blank string
+            historyItem.innerHTML = "";
+        });
+    });
 }
 
 function calcResult () { //what it says on the tin: calculates the result of the requested operation
@@ -72,7 +82,7 @@ function calcResult () { //what it says on the tin: calculates the result of the
     }
 
     displayBar.innerHTML = inputVal1[0]; //update HTML output
-    recordHistory(storedVal1 + " " + operator + " " + inputVal2[0] + " + " + inputVal1[0]);
+    recordHistory(storedVal1 + " " + operator + " " + inputVal2[0] + " = " + inputVal1[0]);
     operator = ""; //clear operator
     inputVal2.pop(); //delete second value
 }
@@ -89,10 +99,21 @@ function buttonClick (clicked) { //initial check after clicking a button
 
 //Create Addition Button
 document.getElementsByClassName("row")[4].insertAdjacentHTML('beforeend', `<div class="button">+</div>`);
-//document.styleSheets[0].deleteRule(5);
 
 for (let i = 0; buttons.length > i; i++) { //assigns click listeners to all buttons and has them report their contents to begin operation
     buttons[i].addEventListener("click", function() {
         buttonClick(buttons[i]);
     });
 }
+
+clearAllHistory.addEventListener("click", function () { //assigns click listener to replace all history HTML with an empty string
+    historyList[0].innerHTML = "";
+});
+
+darkModeSwitch.addEventListener("change", function () { //assigns change listener to dark mode checkbox
+    if (darkModeSwitch.checked) {
+        document.querySelector('body').setAttribute('class', 'dark'); //changes class based on checkbox state
+    } else {
+        document.querySelector('body').setAttribute('class', 'light');
+    }
+});
