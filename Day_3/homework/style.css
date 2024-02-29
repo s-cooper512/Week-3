@@ -1,0 +1,28 @@
+.allButtons {
+    display: flex;
+    align-content: center;
+    justify-content: space-around;
+}
+
+.outputBox {
+    box-sizing: border-box;
+    border: solid 1px black;
+    width: 33%;
+    padding: 10px;
+}
+
+.outputBox h4 {
+    text-decoration: underline;
+}
+
+.outputBoxes {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    overflow-y: scroll;
+    text-align: center;
+}
+
+.outputBox img {
+    max-width: 100%;
+}
