@@ -5,6 +5,7 @@ let newPostContent = document.querySelector("#newPostBox");
 let feedList = document.querySelector(".feedItems");
 let emptyPostError = document.querySelector("#emptyPost");
 let postAtTop = true;
+let allLikeButtons = [];
 
 //functions
 function logOut () {
@@ -32,10 +33,6 @@ function sortPosts() {
     });
 }
 
-function likePosts (likeButton) {
-
-}
-
 function createPost() {
     newPostButton.addEventListener("click", function () {
         if (newPostContent.value !== "") {
@@ -48,6 +45,18 @@ function createPost() {
             }
 
             feedList.insertAdjacentHTML(topOrBottom, `<div class="singlePost">` + newPostContent.value + `<br><br><button class="Like">Like<div class="likeCounter">0</div></button><hr></div>`);
+
+            allLikeButtons = [];
+
+            for (let i = 0; (feedList.childNodes).length > i; i++) {
+                allLikeButtons.push(feedList.childNodes[i]);
+
+                allLikeButtons[i].addEventListener("click", function () {
+                    let likeNumber = parseInt(allLikeButtons[i].querySelector(".likeCounter").innerHTML);
+                    console.log(likeNumber);
+                    allLikeButtons[i].querySelector(".likeCounter").innerHTML = likeNumber + 1;
+                });
+            }
 
             newPostContent.value = "";
             emptyPostError.style.display = "none";
